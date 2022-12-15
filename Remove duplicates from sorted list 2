@@ -1,0 +1,27 @@
+if (!head || !head->next) return head;
+
+        ListNode* dum = new ListNode(0);
+        dum->next = head;
+        
+        ListNode* pos1 = dum;
+        ListNode* pos2 = head;
+        bool haveDuplicate = false;
+        
+        while(true) {
+            while (pos2->next && pos2->next->val == pos2->val) { 
+                pos2 = pos2->next; haveDuplicate = true;
+            }
+            if (haveDuplicate) { 
+                pos1->next = pos2->next;
+                pos2 = pos2->next;
+            }
+            else{
+                pos1 = pos1->next;
+                pos2 = pos2->next;
+            }
+            haveDuplicate = false;
+            if (!pos2) break;
+        }
+        
+        return dum->next;
+    }
