@@ -1,0 +1,31 @@
+ Node* connect(Node* root) {
+      if(root==NULL){
+          return root;
+      }
+    queue<Node*> q;
+    q.push(root);
+     while(!q.empty()) 
+     {
+         int size = q.size();
+        for(int i = 1;i<=size;i++){
+             Node* temp = q.front();
+               q.pop();
+            if(i != size){
+                temp->next = q.front(); 
+            }
+            else{
+                temp->next = NULL;
+            }
+            if(temp ->left)
+              {
+                q.push(temp ->left);
+            }
+            if(temp ->right) 
+              {
+                q.push(temp ->right);
+            }
+         }
+    }
+    return root;   
+    }
+};
