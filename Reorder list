@@ -1,0 +1,51 @@
+
+class Solution {
+public:
+ListNode* getail(ListNode* head){
+ ListNode* curr = head;
+ while(curr->next != NULL){
+     curr = curr->next;
+ }
+ return curr;
+}
+int getsize(ListNode* head){
+    ListNode* curr = head;
+    int k = 0;
+     while(curr->next != NULL){
+     curr = curr->next;
+     k++;
+ }
+ return k;
+}
+ListNode* prev (ListNode* head){
+    ListNode* curr = head;
+ while(curr->next->next != NULL){
+     curr = curr->next;
+ }
+ return curr;
+}
+    void reorderList(ListNode* head) {
+       if(head == NULL || head->next == NULL ){
+            return ;
+        }
+        ListNode* curr  = head;
+        ListNode* tail = getail(head);
+        ListNode*prev1 = prev(head);
+        int k = getsize(head);
+        k = k/2;
+        while(k){
+         tail = getail(head);
+         prev1 = prev(head);
+         prev1->next = NULL;
+        ListNode* next1 = curr->next;
+        curr->next = tail;
+        curr->next->next = next1;
+        curr = curr->next;
+        if(curr->next != NULL){
+            curr = curr->next;
+        }
+        k--;
+        
+         }
+      }
+};
