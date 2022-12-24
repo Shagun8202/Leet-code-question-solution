@@ -1,0 +1,35 @@
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        if(head == NULL){
+            return head;
+        }
+        ListNode* curr = head;
+        ListNode* prev = NULL;
+         while(head->val == val && curr != NULL ){
+             if(curr->next == NULL){
+                 return NULL;
+             }
+
+                head = curr->next;
+                curr = curr->next;
+                }
+                curr = head;
+        while(curr != NULL){
+           
+            if(curr->val == val && prev != NULL){
+                ListNode* next1 = curr->next;
+                prev->next = next1;
+                curr->next = NULL;
+                curr = next1;
+              }
+              else{
+                   prev = curr;
+              curr = curr->next;
+
+              }
+           
+        }
+        return head;
+    }
+};
