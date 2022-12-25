@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int closetTarget(vector<string>& words, string target, int startIndex) {
+        int size =words.size();
+        int ans = size;
+        for(int i =0;i<size;i++){
+            if(words[i]==target){
+                ans = min(ans,abs(startIndex-i));
+                if(i<startIndex)
+                    ans = min(ans,i+size-startIndex);
+                else
+                    ans = min(ans,startIndex+size-i);
+            }
+        }
+        if(ans == size){
+            return -1;
+        }
+        return ans;
+        
+    }
+};
