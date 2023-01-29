@@ -1,0 +1,30 @@
+class Solution {
+public:
+long solve(int n,int tar,vector<int> &coins, vector<vector<long>> &dp){
+    if(n==0){
+        // if(tar%coins[n]==0) return tar/coins[n];
+        // else
+        // return 0;
+        return (tar%coins[0]==0);
+    }
+    if(dp[n][tar] != -1){
+        return dp[n][tar];
+    }
+    long nottake = solve(n-1,tar,coins,dp);
+    long tak =0;
+    if(coins[n]<=tar){
+        tak = solve(n,tar-coins[n],coins,dp);
+    }
+    return dp[n][tar]=  tak + nottake;
+}
+    int change(int amount, vector<int>& coins) {
+        
+        int n = coins.size();
+        vector<vector<long>> dp(n,vector<long>(amount+1,-1));
+        int ans = solve(n-1,amount,coins,dp);
+        // if(ans>=1e9){
+        //     return 0;
+        // }
+        return ans;
+    }
+};
