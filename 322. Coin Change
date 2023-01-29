@@ -1,0 +1,75 @@
+class Solution {
+public:
+int solve(int ind,int T,vector<int>& arr,vector<vector<int>> &dp){
+ // base case
+  if(ind == 0){
+        if(T%arr[0] == 0) return T/arr[0];
+        else return 1e9;
+    }
+    
+    if(dp[ind][T]!=-1)
+        return dp[ind][T];
+        
+    int notTaken = 0 +solve(ind-1,T,arr,dp);
+    
+    int taken = 1e9;
+    if(arr[ind] <= T)
+        taken = 1 + solve(ind,T-arr[ind],arr,dp);
+        
+    return dp[ind][T] = min(notTaken,taken);
+
+}
+int solve2(vector<int> &arr,int T,int n){
+     vector<vector<int>> dp(n,vector<int>(T+1,0));
+for(int i = 0;i<=T;i++){
+    if(i%arr[0]==0){
+        dp[0][i] =i/arr[0];
+    }
+    else{
+        dp[0][i] = 1e9;
+    }
+}
+for(int i = 1;i<n;i++){
+    for(int j = 0;j<=T;j++){
+        int notTaken = 0 +dp[i-1][j];
+        int taken = 1e9;
+    if(arr[i] <= j)
+        taken = 1 + dp[i][j-arr[i]];
+
+        dp[i][j] = min(taken,notTaken);
+    }
+}
+return dp[n-1][T];
+}
+int solve3(vector<int> &arr,int T,int n){
+    vector<int> prev (T+1,0);
+    vector<int> curr(T+1,0);
+for(int i = 0;i<=T;i++){
+    if(i%arr[0]==0){
+        prev[i] =i/arr[0];
+    }
+    else{
+        prev[i] = 1e9;
+    }
+}
+for(int i = 1;i<n;i++){
+    for(int j = 0;j<=T;j++){
+        int notTaken = 0 +prev[j];
+        int taken = 1e9;
+    if(arr[i] <= j)
+        taken = 1 + curr[j-arr[i]];
+
+        curr[j] = min(taken,notTaken);
+    }
+    prev = curr;
+}
+return prev[T];
+}
+    int coinChange(vector<int>& coins, int amount) {
+        int n = coins.size();
+       vector<vector<int>> dp(n,vector<int>(amount+1,-1));
+       int ans = solve3(coins,amount,n);
+        if(ans >= 1e9) return -1;
+       return ans; 
+    }
+};
