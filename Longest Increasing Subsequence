@@ -1,0 +1,23 @@
+class Solution {
+    private:
+    int f(int n ,int i,int last,vector<int> & nums, vector<vector<int>> &dp){
+        if(n==last){
+            return 0;
+        }
+       if(dp[n][i+1] != -1){
+           return dp[n][i+1];
+       } 
+       int len = 0+f(n+1,i,last,nums,dp);
+       if(i==-1 || nums[n]>nums[i]){
+   len = max(len,1+f(n+1,n,last,nums,dp));
+       }
+       return dp[n][i+1] = len;
+    }
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<int>> dp(n,vector<int>(n+1,-1));
+        int ans = f(0,-1,n,nums,dp);
+        return ans;
+    }
+};
