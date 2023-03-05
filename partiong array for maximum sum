@@ -1,0 +1,28 @@
+class Solution {
+    private:
+    int f(int i,int n,int k,vector<int> & arr,vector<int> & dp){
+        if(i==n) return 0;
+        if(dp[i]!= -1){
+            return dp[i];
+        }
+        int maxi = INT_MIN;
+        int len = 0;
+        int maxans = INT_MIN;
+  for(int j = i;j<min(n,i+k);j++){
+      maxi = max(maxi,arr[j]);
+      len++;
+      int d = maxi*len + f(j+1,n,k,arr,dp);
+      maxans = max(maxans , d);
+  }
+ return dp[i]=maxans;
+
+    }
+public:
+    int maxSumAfterPartitioning(vector<int>& arr, int k) {
+      int n = arr.size();
+      vector<int>  dp(n,-1);
+      int ans = f(0,n,k,arr,dp);
+      return ans;
+
+    }
+};
