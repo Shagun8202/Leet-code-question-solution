@@ -15,9 +15,10 @@ class Solution{
      
        for(int i = 0;i<n;i++){
              curr=curr+arr[i];
-           if(curr>maxsum){
-               maxsum=curr;
-           }
+        //   if(curr>maxsum){
+        //       maxsum=curr;
+        //   }
+        maxsum=max(curr,maxsum);
            if(curr<0){
                curr=0;
            }
