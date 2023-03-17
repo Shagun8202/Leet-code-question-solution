@@ -22,7 +22,7 @@ class Solution{
             right[i] = max(arr[i],right[i+1]);
         }
         for(int i =0;i<n;i++){
-            ans += (long long)(min(left[i],right[i])-arr[i]);
+            ans += (min(left[i],right[i])-arr[i]);
         }
         return ans;
     }
