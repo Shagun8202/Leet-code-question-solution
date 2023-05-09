@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int row =matrix.size();
+        int col = matrix[0].size();
+         int total = row*col;
+        int count = 0;
+        int srow = 0;
+        int ecol = col-1;
+        int erow = row - 1;
+        int scol = 0;
+        vector<int> ans;
+        
+        while(count<total){
+            //printing starting row
+            for(int i = scol;count<total&&i<=ecol;i++){
+                ans.push_back(matrix[srow][i]);
+                count++;
+            }
+            srow++;
+            // printing ending coloumn
+            for(int i = srow;count<total&&i<=erow;i++){
+                ans.push_back(matrix[i][ecol]);
+                count++;
+            }
+            ecol--;
+            //printing ending row
+            for(int i = ecol;count<total&& i>=scol;i--){
+                ans.push_back(matrix[erow][i]);
+                             count++;
+            }
+            erow--;
+            //printing taring coloumn
+            for(int i = erow;count<total&&i>=srow;i--){
+                ans.push_back(matrix[i][scol]);
+                count++;
+                
+            }
+            scol++;
+        }
+        return ans ;
+        
+    }
+};
