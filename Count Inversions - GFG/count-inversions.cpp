@@ -9,55 +9,53 @@ class Solution{
     // arr[]: Input Array
     // N : Size of the Array arr[]
     // Function to count inversions in the array.
-    long long int merge(long long int arr[],long long int temp[],int left,int mid,int right)
-{
-    long long int inv_count=0;
-    int i = left;
-    int j = mid;
-    int k = left;
-    while((i <= mid-1) && (j <= right)){
-        if(arr[i] <= arr[j]){
-            temp[k++] = arr[i++];
-        }
-        else
-        {
-            temp[k++] = arr[j++];
-            inv_count = inv_count + (mid - i);
-        }
+    long long int merge(long long arr[],long long left,
+    long long mid,long long right){
+       vector<long long > temp;
+       long long low = left;
+       long long high = mid+1;
+       long long  cnt = 0;
+       while(low <= mid &&high <= right){
+           if(arr[low]<=arr[high]){
+               temp.push_back(arr[low]);
+               low++;
+           }
+           else{
+               temp.push_back(arr[high]);
+               cnt += mid-low+1;
+               high++;
+           }
+       }
+       while(low <= mid){
+           temp.push_back(arr[low]);
+           low++;
+       }
+       while(high <= right){
+           temp.push_back(arr[high]);
+           high++;
+       }
+       for(int i = left;i<=right;i++){
+        arr[i]=temp[i-left];
+       }
+       return cnt;
     }
-
-    while(i <= mid - 1)
-        temp[k++] = arr[i++];
-
-    while(j <= right)
-        temp[k++] = arr[j++];
-
-    for(i = left ; i <= right ; i++)
-        arr[i] = temp[i];
-    
-    return inv_count;
-}
-
-long long int merge_Sort(long long int arr[],long long int temp[],int left,int right)
-{
-    int mid=0;
-    long long int inv_count = 0;
-    if(right > left)
-    {
-        mid = (left + right)/2;
-
-        inv_count += merge_Sort(arr,temp,left,mid);
-        inv_count += merge_Sort(arr,temp,mid+1,right);
-
-        inv_count += merge(arr,temp,left,mid+1,right);
+    long long int merge_sort(long long arr[],long  long left,
+    long long right,long long n){
+       long long int cnt = 0;
+        if(left>=right){
+            return cnt ;
+        }
+        long long mid = (left+right)/2;
+        cnt += merge_sort(arr,left,mid,n);
+        cnt +=merge_sort(arr,mid+1,right,n);
+        cnt +=merge(arr,left,mid,right);
+        return cnt;
+        
     }
-    return inv_count;
-}
-    long long int inversionCount(long long arr[], long long n)
+    long long int inversionCount(long long arr[], long long N)
     {
-        long long temp[n];
-    long long int ans = merge_Sort(arr,temp,0,n-1);
-    return ans;
+        long long ans = merge_sort(arr,0,N-1,N);
+        return ans;
     }
 
 };
