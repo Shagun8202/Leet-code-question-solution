@@ -11,31 +11,23 @@ class Solution{
   public:
     long long int floorSqrt(long long int x) 
     {
-         long long int l = 1;
-         long long int h = x;
-         long long mid = l+(h-l)/2;
-         if(x==1){
-             return 1;
-         }
-         else if(x==0){
-             return 0;
-         }
-        long long int ans = -1;
-         while(l<=h){
-             long long square = mid*mid;
-             if(square == x){
-                 return mid;
-             }
-             if(square>x){
-                 h = mid-1;
-             }
-             else{
-                 ans = mid;
-                 l = mid+1;
-             }
-             mid = l+(h-l)/2;
-         }
-         return ans;
+      long long int l = 1;
+      long long int h = x;
+      long long int sq = 0;
+      while(l<=h){
+          long long int mid = (l+h)/2;
+          if(mid*mid == x){
+              return mid;
+          }
+          else if(mid*mid > x){
+              h = mid-1;
+          }
+          else{
+              sq = mid;
+              l = mid+1;
+          }
+      }
+      return sq;
     }
 };
 
