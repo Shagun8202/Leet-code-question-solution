@@ -6,11 +6,17 @@ using namespace std;
 //User function template for C++
 class Solution{
     private:
-    int binarysearch(int low,int high,vector<vector<int>> arr){
+    int binarysearch(int i,int high,vector<vector<int>> arr){
         int cnt = 0;
-        for(int i = 0;i<high;i++){
-            if(arr[low][i]== 1){
-                cnt++;
+        int low = 0;
+        while(low<=high){
+            int mid = (low+high)/2;
+            if(arr[i][mid]==1){
+                cnt =arr[0].size()-mid+1;
+                high = mid-1;
+            }
+            else{
+                low = mid+1; 
             }
         }
         return cnt;
@@ -20,9 +26,9 @@ public:
 	   int maxi = 0;
 	   int ans = -1;
 	   for(int i = 0;i<n;i++){
-	       int one = binarysearch(i,m,arr);
+	       int one = binarysearch(i,m-1,arr);
 	       if(one>maxi){
-	           maxi = one;
+	           maxi =one;
 	           ans = i;
 	       }
 	   }
