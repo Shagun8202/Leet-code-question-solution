@@ -1,0 +1,27 @@
+class Solution {
+    private:
+    bool help(string a,set<string>& st,int i,vector<int> & dp){
+        if(i==a.length()){
+            return 1;
+        }
+        if(dp[i]!= -1){
+            return dp[i];
+        }
+        string temp ="";
+        for(int j=i;j<a.length();j++){
+            temp = temp + a[j];
+            if(st.find(temp) !=st.end()){
+                if(help(a,st,j+1,dp)) return dp[i]= 1;
+            }
+        }
+        return dp[i]=0;
+    }
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+          set<string> st;
+          vector<int> dp(s.length(),-1);
+  for(auto it:wordDict) st.insert(it);
+  int ans = help(s,st,0,dp);
+  return ans;
+    }
+};
