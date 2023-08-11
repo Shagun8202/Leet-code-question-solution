@@ -1,0 +1,25 @@
+class Solution {
+public:
+int solve(int i,int a,vector<int>& coins,vector<vector<int>>& dp){
+    if(a==0) return 1;
+ if(i==0){
+     if(a%coins[0]==0) return 1;
+     else{
+         return 0;
+     }
+ }
+ if
+ (dp[i][a]!= -1) return dp[i][a];
+ int take = 0;
+ if(coins[i]<=a)
+ take = solve(i,a-coins[i],coins,dp);
+ int  ntake = solve(i-1,a,coins,dp);
+ return dp[i][a] = take+ntake;   
+}
+    int change(int amount, vector<int>& coins) {
+     int n = coins.size();
+     vector<vector<int>> dp(n,vector<int>(amount+1,-1));
+     int ans = solve(n-1,amount,coins,dp);
+     return ans;   
+    }
+};
