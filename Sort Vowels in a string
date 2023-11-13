@@ -1,0 +1,40 @@
+class Solution {
+public:
+    string sortVowels(string s) {
+        int n = s.size();
+        vector<char> v;
+        vector<char> c;
+        unordered_set<char> st;
+        st.insert('a');
+        st.insert('e');
+        st.insert('i');
+        st.insert('o');
+        st.insert('u');
+        st.insert('A');
+        st.insert('E');
+        st.insert('I');
+        st.insert('O');
+        st.insert('U');
+        for(int i=0;i<n;i++)
+        {
+            if(st.find(s[i]) != st.end())
+                v.push_back(s[i]);
+            else
+                c.push_back(s[i]);
+        }
+        sort(v.begin(),v.end());
+        reverse(v.begin(),v.end());
+        string ans="";
+        for(int i=0;i<n;i++)
+        {
+            if(st.find(s[i]) != st.end())
+            {
+                ans += v[v.size()-1];
+                v.pop_back();
+            }
+            else
+                ans += s[i];
+        }
+        return ans;
+    }
+};
