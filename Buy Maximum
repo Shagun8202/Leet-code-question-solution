@@ -1,0 +1,16 @@
+ //Write your code here
+        vector<pair<int, int>>temp;
+        for(int i=0; i<n; i++){
+            temp.push_back({price[i], i+1});
+        }
+        sort(temp.begin(), temp.end());
+        int cnt=0;
+        for(int i=0; i<n; i++){
+            if(temp[i].first<=k){
+                int x=(k)/(temp[i].first);
+                int bought=min(temp[i].second, x);
+                k-=bought*temp[i].first;
+                cnt+=bought;
+            }else break;
+        }
+        return cnt;
