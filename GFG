@@ -1,0 +1,14 @@
+ map<string,int> track;
+    for(int i{0}; i < n; i++){
+         track[arr[i]]++;
+    }
+    
+    string name = "";
+    int max{0};
+    for(auto pair : track){
+        if(pair.second > max || (pair.second == max && pair.first < name)){
+            max = pair.second;
+            name = pair.first;
+        }
+    }
+    return {name, to_string(max)};
